@@ -60,6 +60,16 @@ export default function TeamForm({ member }: { member?: TeamMember }) {
             </div>
 
             <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2">ID (Optional override)</label>
+                <input
+                    name="id"
+                    defaultValue={member?.id}
+                    className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white font-mono text-sm"
+                    placeholder="Auto-generated if left blank"
+                />
+            </div>
+
+            <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2">Quote</label>
                 <textarea
                     name="quote"

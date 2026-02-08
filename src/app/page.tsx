@@ -4,6 +4,7 @@ import { ServicesSection } from '@/components/sections/ServicesSection';
 import { VelocitySection } from '@/components/sections/VelocitySection';
 import { Footer } from '@/components/sections/Footer';
 import { TeamSection } from '@/components/sections/TeamSection';
+import { ClientsSection } from '@/components/sections/ClientsSection';
 import { MotionWrapper } from '@/components/ui/MotionWrapper';
 import { getTeamMembers } from '@/lib/team';
 import { getServices } from '@/lib/services';
@@ -36,6 +37,8 @@ export default async function Home() {
       <MotionWrapper delay={0.1}>
         <TeamSection teamMembers={teamMembers} />
       </MotionWrapper>
+
+      <ClientsSection />
 
       <Footer />
 

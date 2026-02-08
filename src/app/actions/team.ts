@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
 const TeamMemberSchema = z.object({
+    id: z.string().optional(), // Allow optional ID for manual overrides
     name: z.string().min(1, 'Name is required'),
     role: z.string().min(1, 'Role is required'),
     quote: z.string().min(1, 'Quote is required'),
@@ -19,57 +20,74 @@ const TeamMemberSchema = z.object({
 });
 
 export async function createTeamMember(formData: FormData) {
-    const data = {
-        name: formData.get('name') as string,
-        role: formData.get('role') as string,
-        quote: formData.get('quote') as string,
-        img: formData.get('img') as string,
-        color: formData.get('color') as string,
-        text: formData.get('text') as string,
-        gradient: formData.get('gradient') as string,
-        socialEmail: formData.get('socialEmail') as string,
-        socialPortfolio: formData.get('socialPortfolio') as string,
-        socialLinkedin: formData.get('socialLinkedin') as string,
-    };
+    try {
+        const data = {
+            id: formData.get('id') as string || undefined,
+            name: formData.get('name') as string,
+            role: formData.get('role') as string,
+            quote: formData.get('quote') as string,
+            img: formData.get('img') as string,
+            color: formData.get('color') as string,
+            text: formData.get('text') as string,
+            gradient: formData.get('gradient') as string,
+            socialEmail: formData.get('socialEmail') as string,
+            socialPortfolio: formData.get('socialPortfolio') as string,
+            socialLinkedin: formData.get('socialLinkedin') as string,
+        };
 
-    const validated = TeamMemberSchema.parse(data);
+        const validated = TeamMemberSchema.parse(data);
 
-    await db.teamMember.create({
-        data: validated,
-    });
+        await db.teamMember.create({
+            data: validated,
+        });
 
-    revalidatePath('/admin/team');
-    redirect('/admin/team');
+        revalidatePath('/admin/team');
+        redirect('/admin/team');
+    } catch (error) {
+        console.error('Failed to create team member:', error);
+        throw error;
+    }
 }
 
-export async function updateTeamMember(id: string, formData: FormData) {
-    const data = {
-        name: formData.get('name') as string,
-        role: formData.get('role') as string,
-        quote: formData.get('quote') as string,
-        img: formData.get('img') as string,
-        color: formData.get('color') as string,
-        text: formData.get('text') as string,
-        gradient: formData.get('gradient') as string,
-        socialEmail: formData.get('socialEmail') as string,
-        socialPortfolio: formData.get('socialPortfolio') as string,
-        socialLinkedin: formData.get('socialLinkedin') as string,
-    };
+export async function updateTeamMember(currentId: string, formData: FormData) {
+    try {
+        const data = {
+            id: formData.get('id') as string,
+            name: formData.get('name') as string,
+            role: formData.get('role') as string,
+            quote: formData.get('quote') as string,
+            img: formData.get('img') as string,
+            color: formData.get('color') as string,
+            text: formData.get('text') as string,
+            gradient: formData.get('gradient') as string,
+            socialEmail: formData.get('socialEmail') as string,
+            socialPortfolio: formData.get('socialPortfolio') as string,
+            socialLinkedin: formData.get('socialLinkedin') as string,
+        };
 
-    const validated = TeamMemberSchema.parse(data);
+        const validated = TeamMemberSchema.parse(data);
 
-    await db.teamMember.update({
-        where: { id },
-        data: validated,
-    });
+        await db.teamMember.update({
+            where: { id: currentId },
+            data: validated,
+        });
 
-    revalidatePath('/admin/team');
-    redirect('/admin/team');
+        revalidatePath('/admin/team');
+        redirect('/admin/team');
+    } catch (error) {
+        console.error('Failed to update team member:', error);
+        throw error;
+    }
 }
 
 export async function deleteTeamMember(id: string) {
-    await db.teamMember.delete({
-        where: { id },
-    });
-    revalidatePath('/admin/team');
+    try {
+        await db.teamMember.delete({
+            where: { id },
+        });
+        revalidatePath('/admin/team');
+    } catch (error) {
+        console.error('Failed to delete team member:', error);
+        throw error;
+    }
 }

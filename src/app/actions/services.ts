@@ -18,59 +18,72 @@ const ServiceSchema = z.object({
 });
 
 export async function createService(formData: FormData) {
-    // For simplicity, we'll assume features are passed as a JSON string from the form
-    // or we parse them if they are separate fields (but a JSON editor is easier for now)
-    const featuresJson = formData.get('features') as string || '[]';
+    try {
+        const featuresJson = formData.get('features') as string || '[]';
 
-    const data = {
-        id: formData.get('id') as string,
-        title: formData.get('title') as string,
-        subtitle: formData.get('subtitle') as string,
-        description: formData.get('description') as string,
-        heroImage: formData.get('heroImage') as string,
-        ctaText: formData.get('ctaText') as string,
-        ctaLink: formData.get('ctaLink') as string,
-        features: featuresJson,
-    };
+        const data = {
+            id: formData.get('id') as string,
+            title: formData.get('title') as string,
+            subtitle: formData.get('subtitle') as string,
+            description: formData.get('description') as string,
+            heroImage: formData.get('heroImage') as string,
+            ctaText: formData.get('ctaText') as string,
+            ctaLink: formData.get('ctaLink') as string,
+            features: featuresJson,
+        };
 
-    const validated = ServiceSchema.parse(data);
+        const validated = ServiceSchema.parse(data);
 
-    await db.service.create({
-        data: validated,
-    });
+        await db.service.create({
+            data: validated,
+        });
 
-    revalidatePath('/admin/services');
-    redirect('/admin/services');
+        revalidatePath('/admin/services');
+        redirect('/admin/services');
+    } catch (error) {
+        console.error('Failed to create service:', error);
+        throw error; // Let the client handle the error or redirect to an error page
+    }
 }
 
-export async function updateService(id: string, formData: FormData) {
-    const featuresJson = formData.get('features') as string || '[]';
+export async function updateService(currentId: string, formData: FormData) {
+    try {
+        const featuresJson = formData.get('features') as string || '[]';
 
-    const data = {
-        id: formData.get('id') as string,
-        title: formData.get('title') as string,
-        subtitle: formData.get('subtitle') as string,
-        description: formData.get('description') as string,
-        heroImage: formData.get('heroImage') as string,
-        ctaText: formData.get('ctaText') as string,
-        ctaLink: formData.get('ctaLink') as string,
-        features: featuresJson,
-    };
+        const data = {
+            id: formData.get('id') as string,
+            title: formData.get('title') as string,
+            subtitle: formData.get('subtitle') as string,
+            description: formData.get('description') as string,
+            heroImage: formData.get('heroImage') as string,
+            ctaText: formData.get('ctaText') as string,
+            ctaLink: formData.get('ctaLink') as string,
+            features: featuresJson,
+        };
 
-    const validated = ServiceSchema.parse(data);
+        const validated = ServiceSchema.parse(data);
 
-    await db.service.update({
-        where: { id },
-        data: validated,
-    });
+        await db.service.update({
+            where: { id: currentId },
+            data: validated,
+        });
 
-    revalidatePath('/admin/services');
-    redirect('/admin/services');
+        revalidatePath('/admin/services');
+        redirect('/admin/services');
+    } catch (error) {
+        console.error('Failed to update service:', error);
+        throw error;
+    }
 }
 
 export async function deleteService(id: string) {
-    await db.service.delete({
-        where: { id },
-    });
-    revalidatePath('/admin/services');
+    try {
+        await db.service.delete({
+            where: { id },
+        });
+        revalidatePath('/admin/services');
+    } catch (error) {
+        console.error('Failed to delete service:', error);
+        throw error;
+    }
 }

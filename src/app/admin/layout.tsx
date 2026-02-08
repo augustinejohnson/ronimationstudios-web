@@ -21,8 +21,9 @@ const navItems = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
     { name: 'Blog', href: '/admin/blog', icon: FileText },
     { name: 'Team', href: '/admin/team', icon: Users },
-    { name: 'Services', href: '/admin/services', icon: Box }, // Added Services
+    { name: 'Services', href: '/admin/services', icon: Box },
     { name: 'Work', href: '/admin/work', icon: Briefcase },
+    { name: 'Clients', href: '/admin/clients', icon: Users }, // Reusing Users icon or similar
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

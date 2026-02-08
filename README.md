@@ -58,7 +58,7 @@ For a step-by-step walkthrough including **Vercel CLI setup**, **Database Seedin
 3. **Configure Environment Variables** (Database, Auth, Email).
 4. **Deploy**!
 
-> **Note**: Don't forget to run `node seed.mjs` locally against the production database to create the initial admin user.
+> **Note**: Don't forget to run `node seed.mjs` locally against the production database to create the initial admin user. Also ensure `seed.mjs` has the correct social links (LinkedIn, etc.) before running.
 
 ### Important: Supabase Connection
 

@@ -18,64 +18,79 @@ const BlogPostSchema = z.object({
 });
 
 export async function createBlogPost(formData: FormData) {
-    const rawTags = formData.get('tags') as string;
-    // Simple comma-sep handling:
-    const tagArray = rawTags.split(',').map(t => t.trim()).filter(Boolean);
-    const tagsJson = JSON.stringify(tagArray);
+    try {
+        const rawTags = formData.get('tags') as string;
+        // Simple comma-sep handling:
+        const tagArray = rawTags.split(',').map(t => t.trim()).filter(Boolean);
+        const tagsJson = JSON.stringify(tagArray);
 
-    const data = {
-        title: formData.get('title') as string,
-        slug: formData.get('slug') as string,
-        excerpt: formData.get('excerpt') as string,
-        content: formData.get('content') as string,
-        date: formData.get('date') as string,
-        author: formData.get('author') as string,
-        authorRole: formData.get('authorRole') as string,
-        coverImage: formData.get('coverImage') as string,
-        tags: tagsJson,
-    };
+        const data = {
+            title: formData.get('title') as string,
+            slug: formData.get('slug') as string,
+            excerpt: formData.get('excerpt') as string,
+            content: formData.get('content') as string,
+            date: formData.get('date') as string,
+            author: formData.get('author') as string,
+            authorRole: formData.get('authorRole') as string,
+            coverImage: formData.get('coverImage') as string,
+            tags: tagsJson,
+        };
 
-    const validated = BlogPostSchema.parse(data);
+        const validated = BlogPostSchema.parse(data);
 
-    await db.blogPost.create({
-        data: validated,
-    });
+        await db.blogPost.create({
+            data: validated,
+        });
 
-    revalidatePath('/admin/blog');
-    redirect('/admin/blog');
+        revalidatePath('/admin/blog');
+        redirect('/admin/blog');
+    } catch (error) {
+        console.error('Failed to create blog post:', error);
+        throw error;
+    }
 }
 
-export async function updateBlogPost(slug: string, formData: FormData) {
-    const rawTags = formData.get('tags') as string;
-    const tagArray = rawTags.split(',').map(t => t.trim()).filter(Boolean);
-    const tagsJson = JSON.stringify(tagArray);
+export async function updateBlogPost(currentSlug: string, formData: FormData) {
+    try {
+        const rawTags = formData.get('tags') as string;
+        const tagArray = rawTags.split(',').map(t => t.trim()).filter(Boolean);
+        const tagsJson = JSON.stringify(tagArray);
 
-    const data = {
-        title: formData.get('title') as string,
-        slug: formData.get('slug') as string,
-        excerpt: formData.get('excerpt') as string,
-        content: formData.get('content') as string,
-        date: formData.get('date') as string,
-        author: formData.get('author') as string,
-        authorRole: formData.get('authorRole') as string,
-        coverImage: formData.get('coverImage') as string,
-        tags: tagsJson,
-    };
+        const data = {
+            title: formData.get('title') as string,
+            slug: formData.get('slug') as string,
+            excerpt: formData.get('excerpt') as string,
+            content: formData.get('content') as string,
+            date: formData.get('date') as string,
+            author: formData.get('author') as string,
+            authorRole: formData.get('authorRole') as string,
+            coverImage: formData.get('coverImage') as string,
+            tags: tagsJson,
+        };
 
-    const validated = BlogPostSchema.parse(data);
+        const validated = BlogPostSchema.parse(data);
 
-    await db.blogPost.update({
-        where: { slug: slug }, // Using old slug to find
-        data: validated,
-    });
+        await db.blogPost.update({
+            where: { slug: currentSlug }, // Using old slug to find
+            data: validated,
+        });
 
-    revalidatePath('/admin/blog');
-    redirect('/admin/blog');
+        revalidatePath('/admin/blog');
+        redirect('/admin/blog');
+    } catch (error) {
+        console.error('Failed to update blog post:', error);
+        throw error;
+    }
 }
 
 export async function deleteBlogPost(slug: string) {
-    await db.blogPost.delete({
-        where: { slug },
-    });
-    revalidatePath('/admin/blog');
+    try {
+        await db.blogPost.delete({
+            where: { slug },
+        });
+        revalidatePath('/admin/blog');
+    } catch (error) {
+        console.error('Failed to delete blog post:', error);
+        throw error;
+    }
 }
