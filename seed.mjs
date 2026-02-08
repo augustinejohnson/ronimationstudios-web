@@ -13,7 +13,8 @@ const teamData = [
         text: "text-primary",
         gradient: "from-primary",
         social: {
-            email: "johnson@ronimationstudios.com"
+            email: "johnson@ronimationstudios.com",
+            linkedin: "https://www.linkedin.com/in/johnson-augustine-b2aa08176/"
         }
     },
     {
@@ -25,7 +26,8 @@ const teamData = [
         text: "text-secondary",
         gradient: "from-secondary",
         social: {
-            email: "sarah@ronimationstudios.com"
+            email: "sarah@ronimationstudios.com",
+            linkedin: "https://linkedin.com"
         }
     },
     {
@@ -37,7 +39,8 @@ const teamData = [
         text: "text-purple-500",
         gradient: "from-purple-500",
         social: {
-            email: "michael@ronimationstudios.com"
+            email: "michael@ronimationstudios.com",
+            linkedin: "https://linkedin.com"
         }
     },
     {
@@ -49,7 +52,8 @@ const teamData = [
         text: "text-pink-500",
         gradient: "from-pink-500",
         social: {
-            email: "chidi@ronimationstudios.com"
+            email: "chidi@ronimationstudios.com",
+            linkedin: "https://linkedin.com"
         }
     }
 ];
@@ -398,6 +402,9 @@ async function main() {
     }
 
     // Seed Services
+    console.log('Clearing existing services...');
+    await prisma.service.deleteMany({});
+
     for (const key in servicesData) {
         // @ts-ignore
         const service = servicesData[key]
@@ -417,6 +424,9 @@ async function main() {
     }
 
     // Seed Portfolio Items
+    console.log('Clearing existing portfolio items...');
+    await prisma.portfolioItem.deleteMany({});
+
     for (const project of portfolioData) {
         const createdProject = await prisma.portfolioItem.create({
             data: {
@@ -437,6 +447,9 @@ async function main() {
     }
 
     // Seed Blog Posts
+    console.log('Clearing existing blog posts...');
+    await prisma.blogPost.deleteMany({});
+
     for (const post of blogPosts) {
         const createdPost = await prisma.blogPost.create({
             data: {
