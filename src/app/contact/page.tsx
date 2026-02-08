@@ -1,10 +1,12 @@
 'use client';
 
 import { useTransition, useState } from 'react';
+import Link from 'next/link';
 import { Navbar } from '@/components/sections/Navbar';
 import { Footer } from '@/components/sections/Footer';
 import { MotionWrapper } from '@/components/ui/MotionWrapper';
-import { sendContactMessage } from '../actions'; // Import server action
+import { sendContactMessage } from '../actions/contact'; // Import server action
+import { siteRoutes } from '@/config/siteRoutes';
 import { toast } from 'sonner';
 
 export default function ContactPage() {
@@ -57,7 +59,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <p className="text-xs text-gray-500 uppercase tracking-widest font-mono">Email</p>
-                                    <a href="mailto:hello@ronimationstudios.com" className="text-lg font-bold hover:text-white transition-colors">hello@ronimationstudios.com</a>
+                                    <a href="hello@ronimationstudios.com" className="text-lg font-bold hover:text-white transition-colors">hello@ronimationstudios.com</a>
                                 </div>
                             </div>
 
@@ -68,6 +70,16 @@ export default function ContactPage() {
                                 <div>
                                     <p className="text-xs text-gray-500 uppercase tracking-widest font-mono">Studio</p>
                                     <p className="text-lg font-bold">Abuja, Nigeria</p>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-4 group">
+                                <Link href={siteRoutes.global.whatsapp} target="_blank" className="size-12 rounded-full glass-panel flex items-center justify-center group-hover:border-green-500/50 transition-colors">
+                                    <span className="text-green-500 font-bold text-xl">WA</span>
+                                </Link>
+                                <div>
+                                    <p className="text-xs text-gray-500 uppercase tracking-widest font-mono">WhatsApp</p>
+                                    <Link href={siteRoutes.global.whatsapp} target="_blank" className="text-lg font-bold hover:text-white transition-colors">Chat with us</Link>
                                 </div>
                             </div>
                         </div>

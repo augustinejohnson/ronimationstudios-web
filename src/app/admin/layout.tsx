@@ -9,7 +9,8 @@ import {
     Briefcase,
     LogOut,
     Menu,
-    X
+    X,
+    Box
 } from 'lucide-react';
 import { useState } from 'react';
 import { logout } from '@/app/actions/auth';
@@ -20,6 +21,7 @@ const navItems = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
     { name: 'Blog', href: '/admin/blog', icon: FileText },
     { name: 'Team', href: '/admin/team', icon: Users },
+    { name: 'Services', href: '/admin/services', icon: Box }, // Added Services
     { name: 'Work', href: '/admin/work', icon: Briefcase },
 ];
 
@@ -48,8 +50,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                             key={item.href}
                             href={item.href}
                             className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group ${isActive
-                                    ? 'bg-white text-black font-medium shadow-lg shadow-white/5'
-                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                ? 'bg-white text-black font-medium shadow-lg shadow-white/5'
+                                : 'text-gray-400 hover:text-white hover:bg-white/5'
                                 }`}
                         >
                             <item.icon size={20} className={isActive ? 'text-black' : 'text-gray-400 group-hover:text-white'} />

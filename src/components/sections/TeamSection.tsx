@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { SmartLink } from '@/components/ui/SmartLink';
 import Image from 'next/image';
 import { TeamMember } from '@/lib/team';
+import { Globe, Linkedin, Mail } from 'lucide-react';
 
 interface TeamSectionProps {
     teamMembers: TeamMember[];
@@ -27,7 +28,7 @@ export const TeamSection = ({ teamMembers }: TeamSectionProps) => {
     const team = teamMembers;
 
     return (
-        <section id="team" className="py-24 bg-background-dark relative border-b border-white/5 overflow-hidden">
+        <section id="team" className="py-24 bg-background-dark relative border-b border-white/5 overflow-hidden scroll-mt-24">
             {/* Grid Background */}
             <div className="absolute inset-0 opacity-20 pointer-events-none"
                 style={{
@@ -80,8 +81,21 @@ export const TeamSection = ({ teamMembers }: TeamSectionProps) => {
                             <p className="text-gray-400 text-sm leading-relaxed mb-6 italic font-body">"{member.quote}"</p>
 
                             <div className="mt-auto flex gap-3">
-                                <SmartLink href="#" className="text-gray-500 hover:text-white transition-colors"><span className="material-symbols-outlined text-lg">public</span></SmartLink>
-                                <SmartLink href={member.social.email ? `mailto:${member.social.email}` : '#'} className="text-gray-500 hover:text-white transition-colors"><span className="material-symbols-outlined text-lg">mail</span></SmartLink>
+                                {member.social.portfolio && (
+                                    <SmartLink href={member.social.portfolio} className="text-gray-500 hover:text-white transition-colors">
+                                        <Globe className="w-5 h-5" />
+                                    </SmartLink>
+                                )}
+                                {member.social.linkedin && (
+                                    <SmartLink href={member.social.linkedin} className="text-gray-500 hover:text-white transition-colors">
+                                        <Linkedin className="w-5 h-5" />
+                                    </SmartLink>
+                                )}
+                                {member.social.email && (
+                                    <SmartLink href={`mailto:${member.social.email}`} className="text-gray-500 hover:text-white transition-colors">
+                                        <Mail className="w-5 h-5" />
+                                    </SmartLink>
+                                )}
                             </div>
                         </div>
                     ))}

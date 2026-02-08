@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import db from '@/lib/db';
+import { db } from '@/lib/db';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 import { deletePortfolioItem } from '@/app/actions/portfolio';
 import Image from 'next/image';
@@ -25,7 +25,17 @@ export default async function PortfolioAdminPage() {
                     <div key={item.id} className="bg-white/5 border border-white/10 p-4 rounded-xl flex items-center justify-between group">
                         <div className="flex items-center gap-4">
                             <div className="relative w-16 h-9 rounded overflow-hidden bg-gray-800">
-                                <Image src={item.coverImage} alt={item.title} fill className="object-cover" />
+                                {item.coverImage.includes('youtu') ? (
+                                    <div className="w-full h-full flex items-center justify-center bg-red-900/20">
+                                        <span className="text-[10px] text-red-500 font-bold">VIDEO</span>
+                                    </div>
+                                ) : item.coverImage.startsWith('gs://') ? (
+                                    <div className="w-full h-full flex items-center justify-center bg-yellow-900/20">
+                                        <span className="text-[10px] text-yellow-500 font-bold px-1 text-center">INVALID URL</span>
+                                    </div>
+                                ) : (
+                                    <Image src={item.coverImage} alt={item.title} fill unoptimized className="object-cover" />
+                                )}
                             </div>
                             <div>
                                 <h3 className="font-bold text-lg">{item.title}</h3>

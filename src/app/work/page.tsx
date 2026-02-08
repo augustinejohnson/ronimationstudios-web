@@ -4,6 +4,8 @@ import { Footer } from '@/components/sections/Footer';
 import { MotionWrapper } from '@/components/ui/MotionWrapper';
 import { WorkGrid } from '@/components/WorkGrid';
 
+export const dynamic = 'force-dynamic';
+
 export default async function WorkPage() {
     const projects = await getProjects();
 

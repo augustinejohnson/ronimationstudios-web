@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { SmartLink } from '@/components/ui/SmartLink';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ServiceContent } from '@/lib/services'; // Ensure this type is available
 
 type FeatureBarProps = {
     title: string;
@@ -11,10 +13,12 @@ type FeatureBarProps = {
     status: string;
     colorClass: string; // e.g., 'secondary', 'primary'
     children: React.ReactNode;
+    defaultOpen?: boolean;
+    heroImage?: string; // Optional image for background
 };
 
-const FeatureBar = ({ title, icon, status, colorClass, children }: FeatureBarProps) => {
-    const [isOpen, setIsOpen] = useState(false);
+const FeatureBar = ({ title, icon, status, colorClass, children, defaultOpen = false, heroImage }: FeatureBarProps) => {
+    const [isOpen, setIsOpen] = useState(defaultOpen);
 
     // Mapping simple color names to Tailwind classes (simplified for this context)
     const getColorClasses = (color: string) => {
@@ -61,16 +65,26 @@ const FeatureBar = ({ title, icon, status, colorClass, children }: FeatureBarPro
                 isOpen ? "grid-rows-[1fr] opacity-100 pb-6" : "grid-rows-[0fr] opacity-0"
             )}>
                 <div className="overflow-hidden">
-                    <div className="pt-2 text-gray-400 text-sm leading-relaxed border-t border-white/5 mt-2 font-body">
+                    <div className="pt-2 text-gray-400 text-sm leading-relaxed border-t border-white/5 mt-2 font-body relative z-10">
                         {children}
                     </div>
+                    {/* Background Image if available */}
+                    {heroImage && (
+                        <div className="absolute inset-0 opacity-[0.05] bg-cover bg-center mix-blend-overlay pointer-events-none" style={{ backgroundImage: `url('${heroImage}')` }}></div>
+                    )}
                 </div>
             </div>
         </div>
     );
 };
 
-export const VelocitySection = () => {
+export const VelocitySection = ({ services }: { services: ServiceContent[] }) => {
+    const [activeTab, setActiveTab] = useState<'gen-ai' | 'audio'>('gen-ai');
+
+    // Find services by ID (safely)
+    const genAiService = services.find(s => s.id === 'gen-ai');
+    const audioService = services.find(s => s.id === 'audio-restoration');
+
     return (
         <section id="velocity" className="py-24 bg-[#131318] border-y border-white/5 relative overflow-hidden">
 
@@ -79,7 +93,7 @@ export const VelocitySection = () => {
             <div className="absolute inset-0" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)", backgroundSize: "40px 40px", maskImage: "linear-gradient(to bottom, transparent, black, transparent)" }}></div>
 
             <div className="layout-container max-w-[960px] mx-auto px-6 relative z-10">
-                <div className="text-center mb-16">
+                <div className="text-center mb-10">
                     <div className="inline-block mb-4">
                         <span className="px-3 py-1 rounded text-xs font-mono text-secondary bg-secondary/10 border border-secondary/20">SYSTEM_VERSION: 2.0</span>
                     </div>
@@ -87,28 +101,107 @@ export const VelocitySection = () => {
                     <p className="text-gray-400 max-w-lg mx-auto font-body">Our proprietary AI-enhanced workflow engine designed to accelerate creative output without compromising soul.</p>
                 </div>
 
-                <div className="flex flex-col gap-4">
-                    <FeatureBar title="Generative AI Video" icon="auto_awesome" status="Rendering..." colorClass="secondary">
-                        We leverage state-of-the-art diffusion models to generate high-fidelity video content.
-                        From script to screen, our AI workflows accelerate production by 10x while maintaining artistic control.
-                        <br /><br />
-                        <SmartLink href="/services/gen-ai" className="text-secondary hover:underline">Read Documentation →</SmartLink>
-                    </FeatureBar>
+                {/* Tabs Navigation */}
+                <div className="flex justify-center mb-10">
+                    <div className="inline-flex bg-white/5 rounded-full p-1 border border-white/10 backdrop-blur-sm">
+                        <button
+                            onClick={() => setActiveTab('gen-ai')}
+                            className={clsx(
+                                "px-6 py-2 rounded-full text-sm font-bold transition-all duration-300",
+                                activeTab === 'gen-ai'
+                                    ? "bg-secondary text-black shadow-lg shadow-secondary/20"
+                                    : "text-gray-400 hover:text-white"
+                            )}
+                        >
+                            Generative AI
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('audio')}
+                            className={clsx(
+                                "px-6 py-2 rounded-full text-sm font-bold transition-all duration-300",
+                                activeTab === 'audio'
+                                    ? "bg-purple-500 text-white shadow-lg shadow-purple-500/20"
+                                    : "text-gray-400 hover:text-white"
+                            )}
+                        >
+                            Audio Restoration
+                        </button>
+                    </div>
+                </div>
 
-                    <FeatureBar title="AI-Enhanced Editing" icon="content_cut" status="Optimized" colorClass="primary">
-                        Automated scene detection, smart cropping, and pacing analysis. Our tools assist editors by handling the repetitive tasks, leaving purely creative decisions to humans.
-                    </FeatureBar>
+                {/* Tab Content */}
+                <div className="min-h-[400px]">
+                    <AnimatePresence mode="wait">
+                        {activeTab === 'gen-ai' && (
+                            <motion.div
+                                key="gen-ai"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.3 }}
+                                className="flex flex-col gap-4"
+                            >
+                                {/* Dynamic Content from DB */}
+                                {genAiService ? (
+                                    <FeatureBar
+                                        title={genAiService.title}
+                                        icon="auto_awesome"
+                                        status="Rendering..."
+                                        colorClass="secondary"
+                                        defaultOpen={true}
+                                        heroImage={genAiService.heroImage}
+                                    >
+                                        {genAiService.description}
+                                        <br /><br />
+                                        <SmartLink href={`/services/${genAiService.id}`} className="text-secondary hover:underline">
+                                            {genAiService.ctaText || 'Read Documentation'} →
+                                        </SmartLink>
+                                    </FeatureBar>
+                                ) : (
+                                    <div className="text-center text-gray-500 py-4">Generative AI service not found in DB.</div>
+                                )}
 
-                    <FeatureBar title="Audio Restoration" icon="graphic_eq" status="Denoising" colorClass="purple">
-                        Revive archival footage with our neural network-based audio restoration pipeline.
-                        Denoising, dereverberation, and spectral repair.
-                        <br /><br />
-                        <SmartLink href="/services/audio-restoration" className="text-purple-500 hover:underline">View Case Studies →</SmartLink>
-                    </FeatureBar>
+                                <FeatureBar title="AI-Enhanced Editing" icon="content_cut" status="Optimized" colorClass="primary">
+                                    Automated scene detection, smart cropping, and pacing analysis. Our tools assist editors by handling the repetitive tasks, leaving purely creative decisions to humans.
+                                </FeatureBar>
 
-                    <FeatureBar title="Data-Driven Creativity" icon="data_object" status="Analytics" colorClass="pink">
-                        Real-time audience engagement metrics fed back into the creative process to optimize content performance across platforms.
-                    </FeatureBar>
+                                <FeatureBar title="Data-Driven Creativity" icon="data_object" status="Analytics" colorClass="pink">
+                                    Real-time audience engagement metrics fed back into the creative process to optimize content performance across platforms.
+                                </FeatureBar>
+                            </motion.div>
+                        )}
+
+                        {activeTab === 'audio' && (
+                            <motion.div
+                                key="audio"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.3 }}
+                                className="flex flex-col gap-4"
+                            >
+                                {/* Dynamic Content from DB */}
+                                {audioService ? (
+                                    <FeatureBar
+                                        title={audioService.title}
+                                        icon="graphic_eq"
+                                        status="Denoising"
+                                        colorClass="purple"
+                                        defaultOpen={true}
+                                        heroImage={audioService.heroImage}
+                                    >
+                                        {audioService.description}
+                                        <br /><br />
+                                        <SmartLink href={`/services/${audioService.id}`} className="text-purple-500 hover:underline">
+                                            {audioService.ctaText || 'View Case Studies'} →
+                                        </SmartLink>
+                                    </FeatureBar>
+                                ) : (
+                                    <div className="text-center text-gray-500 py-4">Audio Restoration service not found in DB.</div>
+                                )}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </div>
         </section>

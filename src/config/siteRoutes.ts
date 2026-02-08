@@ -18,7 +18,8 @@ export const siteRoutes = {
     home: '/',
     contact: '/contact',
     booking: '/booking',
-    email: 'mailto:contact@ronimation.com',
+    email: 'mailto:admin@ronimationstudios.com',
+    whatsapp: 'https://wa.me/2348124580183', // Placeholder
   },
   hero: {
     primaryCta: '#services', // "Explore Services" (scrolling to services)
@@ -30,7 +31,7 @@ export const siteRoutes = {
   social: {
     instagram: 'https://instagram.com',
     twitter: 'https://twitter.com',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/',
     youtube: 'https://youtube.com',
   },
   services: [
@@ -53,11 +54,11 @@ export const siteRoutes = {
   ] as ServiceRoute[],
   team: [
     {
-      id: 'ron',
-      name: 'Ron',
+      id: 'John',
+      name: 'Johnson',
       role: 'Founder',
-      linkedinUrl: 'https://linkedin.com/in/ron',
-      email: 'ron@ronimation.com',
+      linkedinUrl: 'https://www.linkedin.com/in/johnson-augustine-b2aa08176/',
+      email: 'johnson@ronimationstudios.com',
     },
   ] as TeamMember[],
 };

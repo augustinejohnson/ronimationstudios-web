@@ -447,7 +447,7 @@ async function main() {
     }
 
     // Seed Admin User
-    const adminEmail = 'admin@ronimation.com';
+    const adminEmail = 'admin@ronimationstudios.com';
     // Hash for 'password123' using bcrypt (pre-calculated to avoid dependency in seed script if possible, but let's use a simpler approach or just plain text for now if seed.js is simple node)
     // Actually, since this is a seed script running in Node, we can require bcryptjs if it's installed.
     // However, to keep seed.js simple and dependency-free if possible (or just use what we have), 

@@ -17,12 +17,23 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
         >
             {/* Image Container */}
             <div className="aspect-video relative overflow-hidden">
-                <Image
-                    src={project.coverImage}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+                {project.coverImage.includes('youtu') ? (
+                    <div className="w-full h-full flex items-center justify-center bg-red-900/20">
+                        <span className="text-[10px] text-red-500 font-bold">VIDEO LINK</span>
+                    </div>
+                ) : project.coverImage.startsWith('gs://') ? (
+                    <div className="w-full h-full flex items-center justify-center bg-yellow-900/20">
+                        <span className="text-[10px] text-yellow-500 font-bold px-1 text-center">INVALID URL</span>
+                    </div>
+                ) : (
+                    <Image
+                        src={project.coverImage}
+                        alt={project.title}
+                        fill
+                        unoptimized
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                )}
 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">

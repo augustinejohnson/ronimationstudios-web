@@ -3,6 +3,7 @@
 import { Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
 import { SmartLink } from '@/components/ui/SmartLink';
 import { siteRoutes } from '@/config/siteRoutes';
+import { FeedbackModal } from '@/components/FeedbackModal';
 
 export const Footer = () => {
     return (
@@ -26,6 +27,10 @@ export const Footer = () => {
                         <SmartLink href={siteRoutes.social.youtube} className="text-zinc-400 hover:text-white transition-colors">
                             <Youtube size={20} />
                         </SmartLink>
+                        {/* WhatsApp Icon - Using a custom SVG or similar if Lucide doesn't have it, but Lucide has MessageCircle or similar. User wanted WhatsApp specifically. Generic phone/message icon or just text if icon missing. Lucide has 'MessageCircle'. Let's check imports. */}
+                        <SmartLink href={siteRoutes.global.whatsapp} className="text-zinc-400 hover:text-white transition-colors">
+                            <span className="font-bold text-xs border border-zinc-600 rounded px-1 py-0.5 hover:border-white">WA</span>
+                        </SmartLink>
                     </div>
 
                     <SmartLink
@@ -34,6 +39,8 @@ export const Footer = () => {
                     >
                         Get in Touch
                     </SmartLink>
+
+                    <FeedbackModal />
                 </div>
             </div>
         </footer>

@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ronimation Studios Website
+
+The official website for Ronimation Studios, built with [Next.js](https://nextjs.org), Tailwind CSS, and Prisma.
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**
+2. **Install dependencies**:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Setup Environment Variables**:
+    Copy `.env.local.example` (or create `.env.local`) and add your keys:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    ```env
+    DATABASE_URL="postgresql://..." # Port 6543 (Transaction Mode)
+    SESSION_SECRET="your-secret"
+    RESEND_API_KEY="re_..."
+    NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=""
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Run Development Server**:
 
-## Learn More
+    ```bash
+    npm run dev
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Admin Dashboard
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Access the admin panel at `/admin`.
 
-## Deploy on Vercel
+- **Login**: `/admin/login`
+- **Default Admin**: `admin@ronimationstudios.com`
+- **Documentation**: See [Admin User Guide](admin_user_guide.md) for detailed instructions.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Database Management
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Push Schema**: `npx prisma db push`
+- **Seed Data**: `node seed.mjs`
+- **Studio (GUI)**: `npx prisma studio`
+
+## Deployment
+
+This project is optimized for deployment on **Vercel**.
+
+For a step-by-step walkthrough including **Vercel CLI setup**, **Database Seeding**, and **Custom Domain Configuration**, please refer to the detailed [Deployment Guide](DEPLOYMENT.md).
+
+### Quick Summary
+
+1. **Push** your code to a Git repository.
+2. **Import** into Vercel.
+3. **Configure Environment Variables** (Database, Auth, Email).
+4. **Deploy**!
+
+> **Note**: Don't forget to run `node seed.mjs` locally against the production database to create the initial admin user.
+
+### Important: Supabase Connection
+
+Ensure you use the **Transaction Pooler (Port 6543)** string with `?pgbouncer=true` for the `DATABASE_URL` in production to avoid connection limit issues.

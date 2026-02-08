@@ -1,19 +1,17 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model AdminUser {
-  id       String @id @default(cuid())
-  email    String @unique
-  password String // Hashed password
+  id       String  @id @default(cuid())
+  email    String  @unique
+  password String
   name     String?
 }
 
@@ -32,27 +30,27 @@ model TeamMember {
 }
 
 model Service {
-  id          String @id // The URL slug
+  id          String @id
   title       String
   subtitle    String
   description String
   heroImage   String
-  features    String // JSON string: {title, description, icon?, link?}[]
+  features    String
   ctaText     String
   ctaLink     String
 }
 
 model PortfolioItem {
-  id              String  @id // slug
+  id              String  @id
   title           String
   category        String
   client          String?
   description     String
   fullDescription String
   coverImage      String
-  galleryImages   String // JSON string: string[]
+  galleryImages   String
   videoUrl        String?
-  tags            String // JSON string: string[]
+  tags            String
   date            String?
 }
 
@@ -65,5 +63,5 @@ model BlogPost {
   author     String
   authorRole String
   coverImage String
-  tags       String // JSON string: string[]
+  tags       String
 }

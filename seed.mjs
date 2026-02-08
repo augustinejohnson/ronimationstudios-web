@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient()
 
@@ -12,7 +13,7 @@ const teamData = [
         text: "text-primary",
         gradient: "from-primary",
         social: {
-            email: "johnson@ronimation.com"
+            email: "johnson@ronimationstudios.com"
         }
     },
     {
@@ -24,7 +25,7 @@ const teamData = [
         text: "text-secondary",
         gradient: "from-secondary",
         social: {
-            email: "sarah@ronimation.com"
+            email: "sarah@ronimationstudios.com"
         }
     },
     {
@@ -36,7 +37,7 @@ const teamData = [
         text: "text-purple-500",
         gradient: "from-purple-500",
         social: {
-            email: "michael@ronimation.com"
+            email: "michael@ronimationstudios.com"
         }
     },
     {
@@ -48,7 +49,7 @@ const teamData = [
         text: "text-pink-500",
         gradient: "from-pink-500",
         social: {
-            email: "chidi@ronimation.com"
+            email: "chidi@ronimationstudios.com"
         }
     }
 ];
@@ -355,7 +356,27 @@ Write your post content here using Markdown.
 async function main() {
     console.log('Start seeding ...')
 
+    // Seed Admin User
+    const adminEmail = 'admin@ronimationstudios.com';
+    const adminPassword = await bcrypt.hash('Admin123!', 10);
+
+    const adminUser = await prisma.adminUser.upsert({
+        where: { email: adminEmail },
+        update: {
+            password: adminPassword,
+        },
+        create: {
+            email: adminEmail,
+            password: adminPassword,
+            name: 'Admin',
+        },
+    });
+    console.log(`Created/Updated admin user with id: ${adminUser.id}`);
+
     // Seed Team Members
+    console.log('Clearing existing team members...');
+    await prisma.teamMember.deleteMany({});
+
     for (const member of teamData) {
         // Check if member already exists to avoid unique constraint errors if re-running
         // Simplified for this script: just create

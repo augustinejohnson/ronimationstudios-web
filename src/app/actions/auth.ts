@@ -1,7 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-import db from '@/lib/db';
+import { db } from '@/lib/db';
 import { signSession, verifyPassword } from '@/lib/auth';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';

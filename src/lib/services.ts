@@ -1,4 +1,4 @@
-import db from './db';
+import { db } from './db';
 
 export type ServiceContent = {
     id: string; // The URL slug

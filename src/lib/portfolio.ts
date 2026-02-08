@@ -1,4 +1,4 @@
-import db from './db';
+import { db } from './db';
 
 export type Project = {
     id: string;
@@ -38,6 +38,8 @@ export async function getProjects(): Promise<Project[]> {
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | undefined> {
+    if (!slug) return undefined;
+
     const project = await db.portfolioItem.findUnique({
         where: { id: slug },
     });

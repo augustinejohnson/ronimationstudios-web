@@ -1,9 +1,14 @@
 import PortfolioForm from '@/components/admin/PortfolioForm';
-import db from '@/lib/db';
+import { db } from '@/lib/db';
 import { notFound } from 'next/navigation';
 
 export default async function EditPortfolioPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
+
+    if (!id) {
+        notFound();
+    }
+
     const item = await db.portfolioItem.findUnique({
         where: { id },
     });

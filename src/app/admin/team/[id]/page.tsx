@@ -1,5 +1,5 @@
 import TeamForm from '@/components/admin/TeamForm';
-import db from '@/lib/db';
+import { db } from '@/lib/db';
 import { notFound } from 'next/navigation';
 
 export default async function EditTeamMemberPage({ params }: { params: Promise<{ id: string }> }) {

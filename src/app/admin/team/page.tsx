@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import db from '@/lib/db';
+import { db } from '@/lib/db';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 import { deleteTeamMember } from '@/app/actions/team';
 import Image from 'next/image';

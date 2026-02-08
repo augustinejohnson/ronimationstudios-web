@@ -32,6 +32,7 @@ export const Navbar = () => {
                         <SmartLink href="/#services" className="px-5 py-2 rounded-full border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 text-gray-300 hover:text-white text-sm font-medium transition-all backdrop-blur-sm">Services</SmartLink>
                         <SmartLink href="/#velocity" className="px-5 py-2 rounded-full border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 text-gray-300 hover:text-white text-sm font-medium transition-all backdrop-blur-sm">Velocity</SmartLink>
                         <SmartLink href="/#team" className="px-5 py-2 rounded-full border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 text-gray-300 hover:text-white text-sm font-medium transition-all backdrop-blur-sm">Team</SmartLink>
+                        <SmartLink href="/insights" className="px-5 py-2 rounded-full border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 text-gray-300 hover:text-white text-sm font-medium transition-all backdrop-blur-sm">Blog</SmartLink>
                         <SmartLink href="/contact" className="px-5 py-2 rounded-full border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 text-gray-300 hover:text-white text-sm font-medium transition-all backdrop-blur-sm">Contact</SmartLink>
                     </div>
 
@@ -68,6 +69,7 @@ export const Navbar = () => {
                             <SmartLink href="/#services" onClick={() => setMobileMenuOpen(false)} className="text-gray-300">Services</SmartLink>
                             <SmartLink href="/#velocity" onClick={() => setMobileMenuOpen(false)} className="text-gray-300">Velocity</SmartLink>
                             <SmartLink href="/#team" onClick={() => setMobileMenuOpen(false)} className="text-gray-300">Team</SmartLink>
+                            <SmartLink href="/insights" onClick={() => setMobileMenuOpen(false)} className="text-gray-300">Blog</SmartLink>
                             <SmartLink href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-gray-300">Contact</SmartLink>
                         </div>
                     </motion.div>
