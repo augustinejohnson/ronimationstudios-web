@@ -53,6 +53,8 @@ export async function createPortfolioItem(formData: FormData) {
         });
 
         revalidatePath('/admin/work');
+        revalidatePath('/work');
+        revalidatePath('/');
         redirect('/admin/work');
     } catch (error) {
         console.error('Failed to create portfolio item:', error);
@@ -92,6 +94,9 @@ export async function updatePortfolioItem(currentId: string, formData: FormData)
         });
 
         revalidatePath('/admin/work');
+        revalidatePath('/work');
+        revalidatePath(`/work/${data.id}`);
+        revalidatePath('/'); // If displayed on homepage
         redirect('/admin/work');
     } catch (error) {
         console.error('Failed to update portfolio item:', error);
@@ -105,6 +110,8 @@ export async function deletePortfolioItem(id: string) {
             where: { id },
         });
         revalidatePath('/admin/work');
+        revalidatePath('/work');
+        revalidatePath('/');
     } catch (error) {
         console.error('Failed to delete portfolio item:', error);
         throw error;
