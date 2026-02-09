@@ -69,6 +69,9 @@ export async function updateService(currentId: string, formData: FormData) {
         });
 
         revalidatePath('/admin/services');
+        revalidatePath('/services');
+        revalidatePath(`/services/${data.id}`);
+        revalidatePath('/');
         redirect('/admin/services');
     } catch (error) {
         console.error('Failed to update service:', error);
