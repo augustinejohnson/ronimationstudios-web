@@ -9,8 +9,6 @@ import { MotionWrapper } from '@/components/ui/MotionWrapper';
 import { getTeamMembers } from '@/lib/team';
 import { getServices } from '@/lib/services';
 
-export const dynamic = 'force-dynamic';
-
 export default async function Home() {
   const [teamMembers, servicesMap] = await Promise.all([
     getTeamMembers(),

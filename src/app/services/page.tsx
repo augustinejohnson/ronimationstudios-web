@@ -5,8 +5,6 @@ import { MotionWrapper } from '@/components/ui/MotionWrapper';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata = {
     title: 'Services | Ronimation Studios',
     description: 'Explore Ronimation Studios creative services — 3D modeling, character animation, audio scoring, audio restoration, and generative AI production pipelines.',

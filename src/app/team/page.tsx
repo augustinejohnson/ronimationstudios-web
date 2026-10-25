@@ -6,8 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Globe, Linkedin, Mail } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata = {
     title: 'Our Team | Ronimation Studios',
     description: 'Meet the creative directors, 3D animators, audio engineers, and technologists behind Ronimation Studios.',
