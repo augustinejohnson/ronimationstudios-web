@@ -34,7 +34,7 @@ const FeatureBar = ({ title, icon, status, colorClass, children, defaultOpen = f
     const activeColor = getColorClasses(colorClass);
 
     return (
-        <div className="group relative bg-[#1c1c21] hover:bg-[#232329] border border-white/5 rounded-xl overflow-hidden transition-all duration-300">
+        <div className="group relative bg-white hover:bg-gray-50 border border-gray-200 shadow-sm rounded-xl overflow-hidden transition-all duration-300">
             {/* Glow Bar */}
             <div className={twMerge("absolute top-0 left-0 w-1 h-full opacity-0 group-hover:opacity-100 transition-opacity", activeColor.split(' ')[0])}></div>
 
@@ -45,13 +45,13 @@ const FeatureBar = ({ title, icon, status, colorClass, children, defaultOpen = f
             >
                 <div className="flex items-center gap-4">
                     <span className={twMerge("material-symbols-outlined text-gray-500 transition-colors", activeColor.split(' ')[2])}>{icon}</span>
-                    <h3 className="text-lg md:text-xl font-bold text-white font-display">{title}</h3>
+                    <h3 className="text-lg md:text-xl font-bold text-[#1a1a2e] font-display">{title}</h3>
                 </div>
 
                 <div className="flex items-center gap-4">
                     <span className="text-xs text-gray-500 font-mono hidden sm:block uppercase">{status}</span>
                     <div className={twMerge(
-                        "w-8 h-8 rounded-full border border-white/10 flex items-center justify-center transition-all",
+                        "w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center transition-all",
                         isOpen ? activeColor.split(' ')[0] + " text-black" : "group-hover:bg-white/5"
                     )}>
                         <span className="material-symbols-outlined text-sm transition-transform duration-300" style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}>add</span>
@@ -65,7 +65,7 @@ const FeatureBar = ({ title, icon, status, colorClass, children, defaultOpen = f
                 isOpen ? "grid-rows-[1fr] opacity-100 pb-6" : "grid-rows-[0fr] opacity-0"
             )}>
                 <div className="overflow-hidden">
-                    <div className="pt-2 text-gray-400 text-sm leading-relaxed border-t border-white/5 mt-2 font-body relative z-10">
+                    <div className="pt-2 text-gray-600 text-sm leading-relaxed border-t border-gray-200 mt-2 font-body relative z-10">
                         {children}
                     </div>
                     {/* Background Image if available */}
@@ -86,24 +86,24 @@ export const VelocitySection = ({ services }: { services: ServiceContent[] }) =>
     const audioService = services.find(s => s.id === 'audio-restoration');
 
     return (
-        <section id="velocity" className="py-24 bg-[#131318] border-y border-white/5 relative overflow-hidden">
+        <section id="velocity" className="py-24 bg-gradient-to-b from-[#F0EDE8] to-[#FAFAF8] border-y border-gray-200 relative overflow-hidden">
 
             {/* Grid Pattern Overlay */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5"></div>
-            <div className="absolute inset-0" style={{ backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)", backgroundSize: "40px 40px", maskImage: "linear-gradient(to bottom, transparent, black, transparent)" }}></div>
+            <div className="absolute inset-0" style={{ backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px)", backgroundSize: "40px 40px", maskImage: "linear-gradient(to bottom, transparent, black, transparent)" }}></div>
 
             <div className="layout-container max-w-[960px] mx-auto px-6 relative z-10">
                 <div className="text-center mb-10">
                     <div className="inline-block mb-4">
                         <span className="px-3 py-1 rounded text-xs font-mono text-secondary bg-secondary/10 border border-secondary/20">SYSTEM_VERSION: 2.0</span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-display">Introducing Ronimation Velocity™</h2>
-                    <p className="text-gray-400 max-w-lg mx-auto font-body">Our proprietary AI-enhanced workflow engine designed to accelerate creative output without compromising soul.</p>
+                    <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a2e] mb-4 font-display">Introducing Ronimation Velocity™</h2>
+                    <p className="text-gray-500 max-w-lg mx-auto font-body">Our proprietary AI-enhanced workflow engine designed to accelerate creative output without compromising soul.</p>
                 </div>
 
                 {/* Tabs Navigation */}
                 <div className="flex justify-center mb-10">
-                    <div className="inline-flex bg-white/5 rounded-full p-1 border border-white/10 backdrop-blur-sm">
+                    <div className="inline-flex bg-gray-100 rounded-full p-1 border border-gray-200 backdrop-blur-sm">
                         <button
                             onClick={() => setActiveTab('gen-ai')}
                             className={clsx(

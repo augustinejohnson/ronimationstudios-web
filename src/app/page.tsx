@@ -1,5 +1,5 @@
 import { Navbar } from '@/components/sections/Navbar';
-import { Hero } from '@/components/sections/Hero';
+import { PortfolioShowcase } from '@/components/sections/PortfolioShowcase';
 import { ServicesSection } from '@/components/sections/ServicesSection';
 import { VelocitySection } from '@/components/sections/VelocitySection';
 import { Footer } from '@/components/sections/Footer';
@@ -25,9 +25,9 @@ export default async function Home() {
   const mainServices = allServices.filter(s => !velocityIds.includes(s.id));
 
   return (
-    <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
+    <main className="min-h-screen bg-[#FAFAF8] text-[#1a1a2e] selection:bg-primary selection:text-white">
       <Navbar />
-      <Hero />
+      <PortfolioShowcase />
       <MotionWrapper delay={0.1}>
         <ServicesSection services={mainServices} />
       </MotionWrapper>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Space_Grotesk, Noto_Sans } from 'next/font/google';
 import { Toaster } from 'sonner';
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
+import { ContentProtection } from '@/components/ui/ContentProtection';
 import './globals.css';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space' });
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "Ronimation Studios",
     images: [
       {
-        url: "https://lh3.googleusercontent.com/aida-public/AB6AXuCLISvCb7LSMmSZmPVbsoJa5zYmqGjnbxsqFHmVhz8Cz0KHBWzL_YamnvGq3_nNkPkK5eL9cwiGFu7tkVgGvMs3ssbEtEV8pf_OJuWOGAFZcKWZUXNS7Vs55MUvjfq08m1YYN_zzCRxh30gZf6NRARgPmnk6tnQHEM270T9YgqC2FMl_JXejF8deHe31-b-zNys4TVmQ2pxQIbq2P3nIPircv6M9LiLhF-eoD8SKTl4-I2bG1lodztgpvBbaBlv1kfQUPFciGQHJeI", // Using the VisualHero image as default
+        url: "https://lh3.googleusercontent.com/aida-public/AB6AXuCLISvCb7LSMmSZmPVbsoJa5zYmqGjnbxsqFHmVhz8Cz0KHBWzL_YamnvGq3_nNkPkK5eL9cwiGFu7tkVgGvMs3ssbEtEV8pf_OJuWOGAFZcKWZUXNS7Vs55MUvjfq08m1YYN_zzCRxh30gZf6NRARgPmnk6tnQHEM270T9YgqC2FMl_JXejF8deHe31-b-zNys4TVmQ2pxQIbq2P3nIPircv6M9LiLhF-eoD8SKTl4-I2bG1lodztgpvBbaBlv1kfQUPFciGQHJeI",
         width: 1200,
         height: 630,
       },
@@ -33,11 +34,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="scroll-smooth">
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
-      <body className={`${spaceGrotesk.variable} ${notoSans.variable} bg-background-dark text-white font-display antialiased selection:bg-primary selection:text-white`}>
+      <body className={`${spaceGrotesk.variable} ${notoSans.variable} bg-[#FAFAF8] text-[#1a1a2e] font-display antialiased selection:bg-primary selection:text-white`}>
+        <ContentProtection />
         {/* Schema.org Organization */}
         <script
           type="application/ld+json"
@@ -62,7 +64,7 @@ export default function RootLayout({
           }}
         />
         {children}
-        <Toaster position="top-center" richColors theme="dark" />
+        <Toaster position="top-center" richColors theme="light" />
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
       </body>
     </html>

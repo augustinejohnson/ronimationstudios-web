@@ -23,21 +23,20 @@ const navItems = [
     { name: 'Team', href: '/admin/team', icon: Users },
     { name: 'Services', href: '/admin/services', icon: Box },
     { name: 'Work', href: '/admin/work', icon: Briefcase },
-    { name: 'Clients', href: '/admin/clients', icon: Users }, // Reusing Users icon or similar
+    { name: 'Clients', href: '/admin/clients', icon: Users },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    // Don't show admin sidebar on login page
-    if (pathname === '/admin/login') return <>{children}</>;
+    // Don't show admin sidebar on login or reset-password pages
+    if (pathname === '/admin/login' || pathname === '/admin/reset-password') return <>{children}</>;
 
     const NavContent = () => (
         <div className="flex flex-col h-full bg-black/40 backdrop-blur-xl border-r border-white/10">
             <div className="p-6 flex items-center gap-3 border-b border-white/10">
                 <div className="relative w-8 h-8">
-                    {/* Placeholder or Logo */}
                     <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center font-bold text-black font-display">R</div>
                 </div>
                 <span className="font-display font-bold text-xl tracking-tight">Admin</span>

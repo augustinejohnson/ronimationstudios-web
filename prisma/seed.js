@@ -119,7 +119,7 @@ const servicesData = {
                 title: 'Web & App Design',
                 description: 'User-centric UI/UX design and development.',
                 icon: 'devices',
-                link: '/work/ar-museum-guide'
+                link: '/work/Tech-buzz-guide'
             },
             {
                 title: 'XR Solutions',

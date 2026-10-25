@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     if (!post) {
         return {
-            title: 'Bot Found | Ronimation Insights',
+            title: 'Post Not Found | Ronimation Insights',
         };
     }
 
@@ -48,71 +48,66 @@ export default async function BlogPostPage({
     }
 
     return (
-        <main className="min-h-screen bg-background-dark text-white selection:bg-white selection:text-black">
+        <main className="min-h-screen bg-[#FAFAF8] text-[#1a1a2e] selection:bg-primary selection:text-white">
             <Navbar />
 
             <article>
-                {/* Hero */}
-                <section className="pt-32 pb-16 px-6 max-w-[800px] mx-auto text-center">
-                    <MotionWrapper>
-                        <div className="flex items-center justify-center gap-3 text-sm text-gray-500 mb-6 font-mono uppercase tracking-widest">
-                            <span>{post.date}</span>
-                            <span className="w-1 h-1 rounded-full bg-primary"></span>
-                            <span>{post.tags.join(', ')}</span>
-                        </div>
-                        <h1 className="text-3xl md:text-5xl font-bold mb-8 font-display leading-tight">{post.title}</h1>
+                {/* Hero Header */}
+                <section className="pt-36 sm:pt-44 pb-12 px-4 sm:px-6 max-w-[860px] mx-auto text-center">
+                    <div className="flex items-center justify-center gap-3 text-xs sm:text-sm text-purple-700 mb-4 font-mono uppercase tracking-widest font-bold">
+                        <span>{post.date}</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-purple-600"></span>
+                        <span>{post.tags.join(', ')}</span>
+                    </div>
 
-                        <div className="flex items-center justify-center gap-4">
-                            <div className="size-10 rounded-full bg-gray-800 border border-white/10 flex items-center justify-center text-lg font-bold">
-                                {post.author[0]}
-                            </div>
-                            <div className="text-left">
-                                <div className="text-sm font-bold text-white">{post.author}</div>
-                                <div className="text-xs text-gray-400">{post.authorRole}</div>
-                            </div>
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl font-black mb-6 font-display text-slate-900 leading-tight tracking-tight">
+                        {post.title}
+                    </h1>
+
+                    <div className="flex items-center justify-center gap-3">
+                        <div className="size-10 rounded-full bg-purple-100 text-purple-800 border border-purple-200 flex items-center justify-center text-sm font-bold font-display">
+                            {post.author[0]}
                         </div>
-                    </MotionWrapper>
+                        <div className="text-left">
+                            <div className="text-sm font-bold text-slate-900">{post.author}</div>
+                            <div className="text-xs text-slate-500">{post.authorRole}</div>
+                        </div>
+                    </div>
                 </section>
 
                 {/* Cover Image */}
-                <MotionWrapper className="max-w-[1000px] mx-auto px-6 mb-16">
-                    <div className="aspect-[21/9] relative rounded-2xl overflow-hidden glass-panel border border-white/10">
+                <div className="max-w-[1040px] mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
+                    <div className="aspect-[21/9] relative rounded-3xl overflow-hidden shadow-lg border border-purple-100 bg-slate-100">
                         <Image
                             src={post.coverImage}
                             alt={post.title}
                             fill
-                            className="object-cover"
+                            className="object-cover pointer-events-none select-none"
                             priority
                         />
                     </div>
-                </MotionWrapper>
+                </div>
 
                 {/* Content */}
-                <section className="px-6 pb-32">
-                    <MotionWrapper className="max-w-[700px] mx-auto prose prose-invert prose-lg prose-headings:font-display prose-headings:font-bold prose-p:text-gray-300 prose-p:font-light prose-p:leading-relaxed prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-primary prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic">
-                        {/* 
-                            Simple markdown rendering. In a real app we'd use 'react-markdown' or 'mdx-remote'.
-                            For now, we'll split by newline and render paragraphs/headers coarsely or just whitespace-pre-line
-                            if we want to keep it simple without adding deps. 
-                            However, the content in blog.ts is markdown.
-                            To render it properly without adding a library like react-markdown right now (which might require install),
-                            I will try to keep it simple: Render as pre-line text or use a very simple parser.
-                            Given the instructions "Add dependencies... use npx", I am not sure if I should add react-markdown now.
-                            Let's use whitespace-pre-wrap for MVP or basic regex replacement if needed.
-                            Actually, let's just use whitespace-pre-wrap for now to avoid build issues with new deps.
-                        */}
-                        <div className="whitespace-pre-wrap font-body">
+                <section className="px-4 sm:px-6 pb-24">
+                    <div className="max-w-[760px] mx-auto bg-white rounded-3xl p-6 sm:p-12 shadow-[0_10px_35px_rgba(46,16,101,0.04)] border border-slate-100">
+                        <div className="whitespace-pre-wrap font-body text-slate-700 leading-relaxed text-base sm:text-lg">
                             {post.content}
                         </div>
-                    </MotionWrapper>
+                    </div>
                 </section>
             </article>
 
-            {/* More Posts CTA */}
-            <section className="px-6 pb-20 border-t border-white/5 pt-20">
-                <div className="max-w-[700px] mx-auto text-center">
-                    <h3 className="text-2xl font-bold mb-6 font-display">Keep Reading</h3>
-                    <SmartLink href="/insights" className="text-primary hover:text-white transition-colors">Back to Insights</SmartLink>
+            {/* Back to Insights CTA */}
+            <section className="px-4 sm:px-6 pb-20 pt-6">
+                <div className="max-w-[760px] mx-auto text-center">
+                    <SmartLink
+                        href="/insights"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white hover:bg-purple-50 text-purple-900 font-bold text-sm border border-purple-200 shadow-sm transition-all"
+                    >
+                        <span className="material-symbols-outlined text-sm">arrow_back</span>
+                        <span>Back to All Insights</span>
+                    </SmartLink>
                 </div>
             </section>
 

@@ -42,11 +42,11 @@ export const ServicesSection = ({ services }: { services: ServiceContent[] }) =>
     const displayServices = services.length > 0 ? services : [];
 
     return (
-        <section id="services" className="py-24 bg-background-dark relative overflow-hidden">
+        <section id="services" className="py-24 bg-[#FAFAF8] relative overflow-hidden">
             {/* Grid Background */}
             <div className="absolute inset-0 opacity-20 pointer-events-none"
                 style={{
-                    backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px)',
+                    backgroundImage: 'radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px)',
                     backgroundSize: '40px 40px'
                 }}>
             </div>
@@ -56,9 +56,9 @@ export const ServicesSection = ({ services }: { services: ServiceContent[] }) =>
                 {/* Header */}
                 <div className="flex flex-col mb-16">
                     <div className="max-w-3xl">
-                        <h2 className="text-secondary text-sm font-bold uppercase tracking-widest mb-2 font-display">Our Services</h2>
-                        <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tight font-display mb-6">Crafting the Future of Media</h3>
-                        <p className="text-gray-300 text-lg md:text-xl leading-relaxed font-body">
+                        <h2 className="text-primary text-sm font-bold uppercase tracking-widest mb-2 font-display">Our Services</h2>
+                        <h3 className="text-3xl md:text-5xl font-bold text-[#1a1a2e] tracking-tight font-display mb-6">Crafting the Future of Media</h3>
+                        <p className="text-gray-600 text-lg md:text-xl leading-relaxed font-body">
                             We blend artistic intuition with cutting-edge technology across three core pillars.
                         </p>
                     </div>
@@ -70,7 +70,7 @@ export const ServicesSection = ({ services }: { services: ServiceContent[] }) =>
                         const style = getServiceVisuals(service.id, index);
 
                         return (
-                            <div key={service.id} className={`group glass-panel rounded-lg p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${style.borderClass} min-h-[400px]`}>
+                            <div key={service.id} className={`group bg-white rounded-2xl shadow-sm border border-gray-100 p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${style.borderClass} min-h-[400px]`}>
                                 {/* Decorative Blur/Gradient */}
                                 <div className={`absolute ${style.bgPosition} ${index === 2 ? '' : 'w-40 h-40 rounded-full blur-[50px]'} ${style.blurClass} transition-all`}></div>
 
@@ -78,12 +78,12 @@ export const ServicesSection = ({ services }: { services: ServiceContent[] }) =>
                                     <div className={`size-12 rounded-full bg-white/10 flex items-center justify-center mb-6 ${style.colorClass} group-hover:scale-110 transition-transform`}>
                                         <span className="material-symbols-outlined text-3xl">{style.icon}</span>
                                     </div>
-                                    <h4 className="text-2xl font-bold text-white mb-2 font-display">{service.title}</h4>
-                                    <p className="text-gray-400 text-sm leading-relaxed font-body">{service.description}</p>
+                                    <h4 className="text-2xl font-bold text-[#1a1a2e] mb-2 font-display">{service.title}</h4>
+                                    <p className="text-gray-500 text-sm leading-relaxed font-body">{service.description}</p>
                                 </div>
 
                                 <div className="relative z-10 pt-8">
-                                    <SmartLink href={`/services/${service.id}`} className="inline-flex items-center text-sm font-bold text-white hover:text-secondary transition-colors">
+                                    <SmartLink href={`/services/${service.id}`} className="inline-flex items-center text-sm font-bold text-[#1a1a2e] hover:text-primary transition-colors">
                                         {service.ctaText || 'Learn More'} <span className="material-symbols-outlined text-sm ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
                                     </SmartLink>
                                 </div>
@@ -96,7 +96,7 @@ export const ServicesSection = ({ services }: { services: ServiceContent[] }) =>
                     })}
 
                     {displayServices.length === 0 && (
-                        <div className="col-span-3 text-center text-gray-500 py-10">
+                        <div className="col-span-3 text-center text-gray-400 py-10">
                             No services found. Please add services in the Admin Dashboard.
                         </div>
                     )}

@@ -7,7 +7,7 @@ import { FeedbackModal } from '@/components/FeedbackModal';
 
 export const Footer = () => {
     return (
-        <footer className="bg-black text-white py-12 px-6 border-t border-zinc-900">
+        <footer className="bg-black text-white py-12 px-6 border-t border-gray-800">
             <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
                 <div className="text-zinc-500 text-sm">
                     © {new Date().getFullYear()} Ronimation Studios.

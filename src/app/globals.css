@@ -7,6 +7,10 @@
   --color-background-dark: #0F0F12;
   --color-surface-dark: #1A1A1F;
   --color-surface-glass: rgba(26, 26, 31, 0.6);
+  --color-background-cream: #FAFAF8;
+  --color-surface-cream: #F0EDE8;
+  --color-text-dark: #1a1a2e;
+  --color-text-muted: #6b7280;
 
   --font-display: var(--font-space), sans-serif;
   --font-body: var(--font-noto), sans-serif;
@@ -20,12 +24,28 @@
     border: 1px solid rgba(255, 255, 255, 0.05);
   }
 
+  .glass-panel-light {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  }
+
   .glass-nav {
-    background: rgba(255, 255, 255, 0.05); /* Lighter, more translucent */
-    backdrop-filter: blur(20px); /* Stronger blur */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Slightly more visible border */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .glass-nav-light {
+    background: rgba(250, 250, 248, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
   }
 
   .text-gradient {
@@ -71,8 +91,8 @@
 }
 
 :root {
-  --background: var(--color-background-dark);
-  --foreground: #ffffff;
+  --background: #FAFAF8;
+  --foreground: #1a1a2e;
 }
 
 body {
@@ -82,4 +102,14 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Content Protection: Prevent downloading, dragging & saving images/videos */
+img, video, audio {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
 }

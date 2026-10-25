@@ -2,42 +2,49 @@
 
 import { Navbar } from '@/components/sections/Navbar';
 import { Footer } from '@/components/sections/Footer';
-import { MotionWrapper } from '@/components/ui/MotionWrapper';
 import { InlineWidget } from 'react-calendly';
 
 export default function BookingPage() {
     return (
-        <main className="min-h-screen bg-background-dark text-white selection:bg-white selection:text-black flex flex-col">
+        <main className="min-h-screen bg-[#FAFAF8] text-[#1a1a2e] selection:bg-primary selection:text-white flex flex-col">
             <Navbar />
 
-            <MotionWrapper className="flex-1 flex flex-col items-center justify-center py-32 px-6">
-                <div className="text-center mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold font-display mb-4">Book a Consultation</h1>
-                    <p className="text-gray-400 font-body text-lg max-w-xl mx-auto">
-                        Select a time slot below to discuss your project with our creative director.
+            {/* Studio Header */}
+            <section className="pt-36 sm:pt-44 pb-20 px-4 sm:px-6 relative overflow-hidden bg-gradient-to-b from-[#3B0764] via-[#581C87] to-[#FAFAF8] text-white">
+                <div className="max-w-[1280px] mx-auto text-center relative z-10">
+                    <span className="inline-block px-3 py-1 rounded-full bg-white/10 text-purple-200 border border-white/20 text-xs font-bold tracking-widest uppercase mb-4">
+                        Schedule an Appointment
+                    </span>
+                    <h1 className="text-4xl sm:text-6xl font-black mb-3 font-display tracking-tight text-white">
+                        Book a Consultation
+                    </h1>
+                    <p className="text-base sm:text-lg text-purple-100/90 max-w-xl mx-auto font-body leading-relaxed">
+                        Select a time slot below to discuss your project, 3D pipelines, or music production with our creative director.
                     </p>
                 </div>
+            </section>
 
-                {/* Calendar Widget */}
-                <div className="w-full max-w-4xl h-[700px] bg-surface-dark border border-white/5 rounded-2xl overflow-hidden glass-panel relative">
-                    {/* Fallback/Loading bg if widget takes time */}
+            {/* Calendar Widget Container (Clean White Floating Canvas) */}
+            <div className="flex-1 px-4 sm:px-6 pb-24 -mt-10 relative z-20">
+                <div className="w-full max-w-4xl mx-auto h-[700px] bg-white border border-purple-100 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(46,16,101,0.08)] relative">
+                    {/* Fallback spinner */}
                     <div className="absolute inset-0 flex items-center justify-center -z-10">
-                        <span className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></span>
+                        <span className="w-8 h-8 border-2 border-purple-600 border-t-transparent rounded-full animate-spin"></span>
                     </div>
 
                     <InlineWidget
                         url="https://calendly.com/ronimation/30min"
                         styles={{ height: '100%', width: '100%' }}
                         pageSettings={{
-                            backgroundColor: '111111',
+                            backgroundColor: 'ffffff',
                             hideEventTypeDetails: false,
                             hideLandingPageDetails: false,
-                            primaryColor: '8a2ce2', // Matches primary purple
-                            textColor: 'ffffff'
+                            primaryColor: '7c3aed',
+                            textColor: '1e1b4b'
                         }}
                     />
                 </div>
-            </MotionWrapper>
+            </div>
 
             <Footer />
         </main>
