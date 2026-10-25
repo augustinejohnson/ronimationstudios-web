@@ -67,22 +67,28 @@ export async function login(prevState: any, formData: FormData) {
     redirect('/admin');
 }
 
-export async function resetAdminPassword(prevState: any, formData: FormData) {
+export type ResetPasswordState = {
+    error?: string;
+    success?: boolean;
+    message?: string;
+};
+
+export async function resetAdminPassword(prevState: ResetPasswordState, formData: FormData): Promise<ResetPasswordState> {
     const email = (formData.get('email') as string || '').trim().toLowerCase();
     const recoveryKey = (formData.get('recoveryKey') as string || '').trim();
     const newPassword = (formData.get('newPassword') as string || '').trim();
     const confirmPassword = (formData.get('confirmPassword') as string || '').trim();
 
     if (!email || !recoveryKey || !newPassword) {
-        return { error: 'All fields are required.' };
+        return { error: 'All fields are required.', success: false };
     }
 
     if (newPassword.length < 6) {
-        return { error: 'Password must be at least 6 characters.' };
+        return { error: 'Password must be at least 6 characters.', success: false };
     }
 
     if (newPassword !== confirmPassword) {
-        return { error: 'Passwords do not match.' };
+        return { error: 'Passwords do not match.', success: false };
     }
 
     // Valid recovery keys: custom env variable, SESSION_SECRET, or the default studio security key
@@ -97,6 +103,7 @@ export async function resetAdminPassword(prevState: any, formData: FormData) {
     if (!isKeyValid) {
         return {
             error: 'Invalid Studio Recovery Key. The default key is "Ronimation2025!Admin" unless customized in environment variables.',
+            success: false,
         };
     }
 
@@ -120,6 +127,7 @@ export async function resetAdminPassword(prevState: any, formData: FormData) {
     } catch (err: any) {
         return {
             error: 'Failed to update database: ' + (err.message || 'Make sure database is active.'),
+            success: false,
         };
     }
 }

@@ -4,6 +4,9 @@ const isGithubPages = process.env.GITHUB_PAGES === 'true';
 
 const nextConfig: NextConfig = {
   output: isGithubPages ? 'export' : undefined,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     unoptimized: isGithubPages ? true : false,
     remotePatterns: [

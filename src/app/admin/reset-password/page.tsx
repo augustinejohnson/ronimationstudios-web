@@ -1,16 +1,16 @@
 'use client';
 
 import { useActionState } from 'react';
-import { resetAdminPassword } from '@/app/actions/auth';
+import { resetAdminPassword, type ResetPasswordState } from '@/app/actions/auth';
 import { Navbar } from '@/components/sections/Navbar';
 import { Footer } from '@/components/sections/Footer';
 import { MotionWrapper } from '@/components/ui/MotionWrapper';
 import Link from 'next/link';
 
-const initialState = {
-    error: '',
+const initialState: ResetPasswordState = {
+    error: undefined,
     success: false,
-    message: '',
+    message: undefined,
 };
 
 export default function ResetPasswordPage() {
